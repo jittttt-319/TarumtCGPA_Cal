@@ -98,8 +98,8 @@ const Calculator: React.FC = () => {
 
   return (
     <div className="max-w-4xl mx-auto p-4">
-      <div className="bg-white rounded-lg shadow-md p-6 mb-8">
-        <h2 className="text-xl font-semibold text-gray-800 mb-6">
+      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-8">
+        <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-6">
           Enter Your Information
         </h2>
 
@@ -107,12 +107,12 @@ const Calculator: React.FC = () => {
           {/* Basic Info */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                 Your Name
               </label>
               <input
                 type="text"
-                className="w-full p-3 border rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent text-lg"
+                className="w-full p-3 border rounded dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200 focus:ring-2 focus:ring-blue-500 focus:border-transparent text-lg"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Enter your name"
@@ -120,7 +120,7 @@ const Calculator: React.FC = () => {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                 Student Type
               </label>
               <div className="flex gap-4 mt-2">
@@ -131,7 +131,7 @@ const Calculator: React.FC = () => {
                     onChange={() => setIsOldStudent(false)}
                     className="mr-2 h-5 w-5"
                   />
-                  <span className="text-lg">New Student</span>
+                  <span className="text-lg dark:text-gray-200">New Student</span>
                 </label>
                 <label className="flex items-center">
                   <input
@@ -140,10 +140,10 @@ const Calculator: React.FC = () => {
                     onChange={() => setIsOldStudent(true)}
                     className="mr-2 h-5 w-5"
                   />
-                  <span className="text-lg">Returning Student</span>
+                  <span className="text-lg dark:text-gray-200">Returning Student</span>
                 </label>
               </div>
-              <div className="mt-2 text-xs text-gray-500 italic">
+              <div className="mt-2 text-xs text-gray-500 dark:text-gray-400 italic">
                 <p>Note: New students follow the updated grading scale (A- = 3.67, A = 4.0, etc.)</p>
                 <p>Returning students use the older grading scale (A- = 3.75, A = 4.0, etc.)</p>
               </div>
