@@ -9,7 +9,7 @@ const Calculator: React.FC = () => {
   const [currentCreditHours, setCurrentCreditHours] = useState(0);
   const [currentCGPA, setCurrentCGPA] = useState(0);
   const [isOldStudent, setIsOldStudent] = useState(false);
-  const [numSubjects, setNumSubjects] = useState(1);
+  const [numSubjects, setNumSubjects] = useState<number | ''>(1); // Allow empty state
   const [subjects, setSubjects] = useState<Subject[]>([
     { grade: '', credit_hours: 1 },
   ]);
@@ -28,22 +28,33 @@ const Calculator: React.FC = () => {
     setSubjects(newSubjects);
   };
 
-  const handleNumSubjectsChange = (num: number) => {
-    setNumSubjects(num);
+  const handleNumSubjectsChange = (value: number | '') => {
+    setNumSubjects(value);
+    
+    if (value === '' || isNaN(Number(value))) {
+      return; // Don't update subjects if value is empty
+    }
 
+    const num = Number(value);
+    
     if (num > subjects.length) {
       // Add new subjects
       setSubjects([
         ...subjects,
         ...Array(num - subjects.length).fill({ grade: '', credit_hours: 1 }),
       ]);
-    } else {
+    } else if (num > 0) { // Only update if number is greater than 0
       // Remove subjects
       setSubjects(subjects.slice(0, num));
     }
   };
 
   const handleCalculate = () => {
+    if (numSubjects === '' || numSubjects === 0) {
+      alert('Please enter the number of subjects');
+      return;
+    }
+    
     const validSubjects = subjects.filter((s) => s.grade && s.credit_hours > 0);
 
     if (validSubjects.length === 0) {
@@ -77,7 +88,7 @@ const Calculator: React.FC = () => {
     setCurrentCreditHours(0);
     setCurrentCGPA(0);
     setIsOldStudent(false);
-    setNumSubjects(1);
+    setNumSubjects(''); // Reset to empty string
     setSubjects([{ grade: '', credit_hours: 1 }]);
     setCocuParticipation(false);
     setHasInternship(false);
@@ -189,11 +200,12 @@ const Calculator: React.FC = () => {
               inputMode="numeric"
               className="w-full p-3 border rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent text-lg"
               value={numSubjects}
-              onChange={(e) =>
-                handleNumSubjectsChange(parseInt(e.target.value) || 1)
-              }
+              onChange={(e) => {
+                const value = e.target.value === '' ? '' : parseInt(e.target.value);
+                handleNumSubjectsChange(value);
+              }}
               min="1"
-              placeholder="1"
+              placeholder="Enter number of subjects"
             />
           </div>
 
