@@ -23,7 +23,7 @@ const CourseInput: React.FC<CourseInputProps> = ({
           Course {index + 1} Grade
         </label>
         <select
-          className="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          className="w-full p-3 border rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent text-lg"
           value={subject.grade}
           onChange={(e) => onChange(index, 'grade', e.target.value)}
         >
@@ -46,11 +46,13 @@ const CourseInput: React.FC<CourseInputProps> = ({
         </label>
         <input
           type="number"
-          className="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-          value={subject.credit_hours}
+          inputMode="decimal"
+          className="w-full p-3 border rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent text-lg"
+          value={subject.credit_hours || ''}
           onChange={(e) => onChange(index, 'credit_hours', parseFloat(e.target.value) || 0)}
           min="0"
           step="0.5"
+          placeholder="1"
         />
       </div>
     </div>

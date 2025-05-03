@@ -101,7 +101,7 @@ const Calculator: React.FC = () => {
               </label>
               <input
                 type="text"
-                className="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full p-3 border rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent text-lg"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Enter your name"
@@ -118,18 +118,18 @@ const Calculator: React.FC = () => {
                     type="radio"
                     checked={!isOldStudent}
                     onChange={() => setIsOldStudent(false)}
-                    className="mr-2"
+                    className="mr-2 h-5 w-5"
                   />
-                  <span>New Student</span>
+                  <span className="text-lg">New Student</span>
                 </label>
                 <label className="flex items-center">
                   <input
                     type="radio"
                     checked={isOldStudent}
                     onChange={() => setIsOldStudent(true)}
-                    className="mr-2"
+                    className="mr-2 h-5 w-5"
                   />
-                  <span>Returning Student</span>
+                  <span className="text-lg">Returning Student</span>
                 </label>
               </div>
               <div className="mt-2 text-xs text-gray-500 italic">
@@ -147,13 +147,15 @@ const Calculator: React.FC = () => {
               </label>
               <input
                 type="number"
-                className="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                value={currentCreditHours}
+                inputMode="decimal"
+                className="w-full p-3 border rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent text-lg"
+                value={currentCreditHours || ''}
                 onChange={(e) =>
                   setCurrentCreditHours(parseFloat(e.target.value) || 0)
                 }
                 min="0"
                 step="0.5"
+                placeholder="0"
               />
             </div>
 
@@ -163,14 +165,16 @@ const Calculator: React.FC = () => {
               </label>
               <input
                 type="number"
-                className="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                value={currentCGPA}
+                inputMode="decimal"
+                className="w-full p-3 border rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent text-lg"
+                value={currentCGPA || ''}
                 onChange={(e) =>
                   setCurrentCGPA(parseFloat(e.target.value) || 0)
                 }
                 min="0"
                 max="4.0"
                 step="0.01"
+                placeholder="0.00"
               />
             </div>
           </div>
@@ -182,12 +186,14 @@ const Calculator: React.FC = () => {
             </label>
             <input
               type="number"
-              className="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              inputMode="numeric"
+              className="w-full p-3 border rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent text-lg"
               value={numSubjects}
               onChange={(e) =>
                 handleNumSubjectsChange(parseInt(e.target.value) || 1)
               }
               min="1"
+              placeholder="1"
             />
           </div>
 
@@ -221,9 +227,9 @@ const Calculator: React.FC = () => {
                     type="checkbox"
                     checked={cocuParticipation}
                     onChange={(e) => setCocuParticipation(e.target.checked)}
-                    className="mr-2"
+                    className="mr-2 h-5 w-5"
                   />
-                  <span>Participated in co-curricular activities</span>
+                  <span className="text-lg">Participated in co-curricular activities</span>
                 </label>
               </div>
 
@@ -233,9 +239,9 @@ const Calculator: React.FC = () => {
                     type="checkbox"
                     checked={hasInternship}
                     onChange={(e) => setHasInternship(e.target.checked)}
-                    className="mr-2"
+                    className="mr-2 h-5 w-5"
                   />
-                  <span>Completed an internship</span>
+                  <span className="text-lg">Completed an internship</span>
                 </label>
 
                 {hasInternship && (
@@ -245,12 +251,13 @@ const Calculator: React.FC = () => {
                     </label>
                     <input
                       type="number"
-                      className="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                      value={internshipCreditHours}
+                      inputMode="numeric"
+                      className="w-full p-3 border rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent text-lg"
+                      value={internshipCreditHours || ''}
                       onChange={(e) => setInternshipCreditHours(parseFloat(e.target.value) || 0)}
                       min="0"
                       step="1"
-                      placeholder="Enter credit hours for internship"
+                      placeholder="Enter credit hours"
                     />
                     <p className="text-xs text-gray-500 mt-1">
                       Enter the number of credit hours for your internship according to your faculty guidelines.
@@ -263,15 +270,14 @@ const Calculator: React.FC = () => {
 
           {/* Action buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center mt-6">
-
             <button
-              className="btn btn-primary"
+              className="btn btn-primary p-4 text-lg"
               onClick={handleCalculate}
             >
               Calculate
             </button>
             <button
-              className="btn btn-secondary"
+              className="btn btn-secondary p-4 text-lg"
               onClick={handleReset}
             >
               Reset
