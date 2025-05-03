@@ -9,7 +9,7 @@ const Calculator: React.FC = () => {
   const [currentCreditHours, setCurrentCreditHours] = useState(0);
   const [currentCGPA, setCurrentCGPA] = useState(0);
   const [isOldStudent, setIsOldStudent] = useState(false);
-  const [numSubjects, setNumSubjects] = useState<number | ''>(1); // Allow empty state
+  const [numSubjects, setNumSubjects] = useState<number | ''>(''); // Empty state by default
   const [subjects, setSubjects] = useState<Subject[]>([
     { grade: '', credit_hours: 1 },
   ]);
@@ -168,6 +168,11 @@ const Calculator: React.FC = () => {
                 step="0.5"
                 placeholder="0"
               />
+              <div className="mt-2 text-xs bg-yellow-50 border border-yellow-200 rounded p-2 text-yellow-700">
+                <p className="font-semibold">Important Notice:</p>
+                <p>Only diploma students entering degree programs should enter their previous credit hours. Regular students should use the standard calculation.</p>
+                <p>Using this field incorrectly will affect your CGPA calculation.</p>
+              </div>
             </div>
 
             <div>
