@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useEffect, useState } from 'react';
 
 const DarkModeToggle: React.FC = () => {
@@ -5,13 +7,16 @@ const DarkModeToggle: React.FC = () => {
 
   // Initialize dark mode based on user preference or local storage
   useEffect(() => {
-    const isDarkMode = localStorage.getItem('darkMode') === 'true';
-    setDarkMode(isDarkMode);
-    
-    if (isDarkMode) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
+    // Check if we're in the browser environment
+    if (typeof window !== 'undefined') {
+      const isDarkMode = localStorage.getItem('darkMode') === 'true';
+      setDarkMode(isDarkMode);
+      
+      if (isDarkMode) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
     }
   }, []);
 
@@ -45,11 +50,11 @@ const DarkModeToggle: React.FC = () => {
       <label className="inline-flex relative items-center cursor-pointer">
         <input 
           type="checkbox" 
-          className="toggle-checkbox sr-only peer" 
+          className="sr-only peer" 
           checked={darkMode}
           onChange={toggleDarkMode} 
         />
-        <div className="w-11 h-6 bg-gray-300 rounded-full peer-focus:ring-2 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600 slider"></div>
+        <div className="w-11 h-6 bg-gray-300 rounded-full peer-focus:ring-2 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
       </label>
 
       <span className="ml-2 text-sm">

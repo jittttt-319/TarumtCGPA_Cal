@@ -1,21 +1,24 @@
 'use client';
 
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 
-export default function DarkModeProvider({
-  children,
-}: {
+const DarkModeProvider: React.FC<{
   children: React.ReactNode;
-}) {
+}> = ({ children }) => {
   // Initialize dark mode from localStorage on client-side
   useEffect(() => {
-    const isDarkMode = localStorage.getItem('darkMode') === 'true';
-    if (isDarkMode) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
+    // Check if window is defined (browser environment)
+    if (typeof window !== 'undefined') {
+      const isDarkMode = localStorage.getItem('darkMode') === 'true';
+      if (isDarkMode) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
     }
   }, []);
 
   return <>{children}</>;
-}
+};
+
+export default DarkModeProvider;
