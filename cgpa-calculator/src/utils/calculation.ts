@@ -54,7 +54,7 @@ export const calculateCGPA = (
   newCreditHours: number,
   newGPA: number,
   cocuParticipation: boolean = false,
-  internshipType: 'short' | 'long' | null = null
+  internshipCreditHours: number = 0
 ): number => {
   let adjustedCreditHours = currentCreditHours;
 
@@ -63,11 +63,9 @@ export const calculateCGPA = (
     adjustedCreditHours = Math.max(0, adjustedCreditHours - 2); // Reduce by 2
   }
 
-  // Adjust for internship type
-  if (internshipType === 'short') {
-    adjustedCreditHours = Math.max(0, adjustedCreditHours - 5); // Reduce by 5 for short semester
-  } else if (internshipType === 'long') {
-    adjustedCreditHours = Math.max(0, adjustedCreditHours - 8); // Reduce by 8 for long semester
+  // Adjust for internship if applicable
+  if (internshipCreditHours > 0) {
+    adjustedCreditHours = Math.max(0, adjustedCreditHours - internshipCreditHours);
   }
 
   // Calculate cumulative CGPA based on weighted average

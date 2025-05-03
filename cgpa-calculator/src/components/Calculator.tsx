@@ -15,9 +15,7 @@ const Calculator: React.FC = () => {
   ]);
   const [cocuParticipation, setCocuParticipation] = useState(false);
   const [hasInternship, setHasInternship] = useState(false);
-  const [internshipType, setInternshipType] = useState<'short' | 'long' | null>(
-    null
-  );
+  const [internshipCreditHours, setInternshipCreditHours] = useState(0);
   const [results, setResults] = useState<CalculationResult | null>(null);
 
   const handleSubjectChange = (
@@ -56,13 +54,15 @@ const Calculator: React.FC = () => {
     }
 
     const [gpa, totalCreditHours] = calculateGPA(validSubjects, isOldStudent);
+    
+    // Modified to pass internship credit hours directly
     const cgpa = calculateCGPA(
       currentCreditHours,
       currentCGPA,
       totalCreditHours,
       gpa,
       cocuParticipation,
-      hasInternship ? internshipType : null
+      hasInternship ? internshipCreditHours : 0
     );
 
     setResults({
@@ -81,7 +81,7 @@ const Calculator: React.FC = () => {
     setSubjects([{ grade: '', credit_hours: 1 }]);
     setCocuParticipation(false);
     setHasInternship(false);
-    setInternshipType(null);
+    setInternshipCreditHours(0);
     setResults(null);
   };
 
@@ -131,6 +131,10 @@ const Calculator: React.FC = () => {
                   />
                   <span>Returning Student</span>
                 </label>
+              </div>
+              <div className="mt-2 text-xs text-gray-500 italic">
+                <p>Note: New students follow the updated grading scale (A- = 3.67, A = 4.0, etc.)</p>
+                <p>Returning students use the older grading scale (A- = 3.75, A = 4.0, etc.)</p>
               </div>
             </div>
           </div>
@@ -237,28 +241,20 @@ const Calculator: React.FC = () => {
                 {hasInternship && (
                   <div className="mt-2 ml-6">
                     <label className="block text-sm font-medium text-gray-700 mb-1">
-                      Internship Type
+                      Internship Credit Hours
                     </label>
-                    <div className="flex gap-4">
-                      <label className="flex items-center">
-                        <input
-                          type="radio"
-                          checked={internshipType === 'short'}
-                          onChange={() => setInternshipType('short')}
-                          className="mr-2"
-                        />
-                        <span>Short Semester</span>
-                      </label>
-                      <label className="flex items-center">
-                        <input
-                          type="radio"
-                          checked={internshipType === 'long'}
-                          onChange={() => setInternshipType('long')}
-                          className="mr-2"
-                        />
-                        <span>Long Semester</span>
-                      </label>
-                    </div>
+                    <input
+                      type="number"
+                      className="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      value={internshipCreditHours}
+                      onChange={(e) => setInternshipCreditHours(parseFloat(e.target.value) || 0)}
+                      min="0"
+                      step="1"
+                      placeholder="Enter credit hours for internship"
+                    />
+                    <p className="text-xs text-gray-500 mt-1">
+                      Enter the number of credit hours for your internship according to your faculty guidelines.
+                    </p>
                   </div>
                 )}
               </div>
