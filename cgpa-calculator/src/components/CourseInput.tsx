@@ -17,13 +17,13 @@ const CourseInput: React.FC<CourseInputProps> = ({
   onChange,
 }) => {
   return (
-    <div className="flex flex-col md:flex-row gap-4 mb-4 p-4 border rounded card dark:bg-gray-800 dark:border-gray-700">
+    <div className="flex flex-col md:flex-row gap-4 mb-4 p-4 border rounded card">
       <div className="flex-1 form-group">
-        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+        <label className="block text-sm font-medium text-gray-700 mb-1">
           Course {index + 1} Grade
         </label>
         <select
-          className="w-full p-3 border rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent text-lg dark:bg-gray-700 dark:text-white dark:border-gray-600"
+          className="w-full p-3 border rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent text-lg"
           value={subject.grade}
           onChange={(e) => onChange(index, 'grade', e.target.value)}
         >
@@ -41,13 +41,13 @@ const CourseInput: React.FC<CourseInputProps> = ({
         </select>
       </div>
       <div className="flex-1 form-group">
-        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+        <label className="block text-sm font-medium text-gray-700 mb-1">
           Credit Hours
         </label>
         <input
           type="number"
           inputMode="decimal"
-          className="w-full p-3 border rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent text-lg dark:bg-gray-700 dark:text-white dark:border-gray-600"
+          className="w-full p-3 border rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent text-lg"
           value={subject.credit_hours || ''}
           onChange={(e) => onChange(index, 'credit_hours', parseFloat(e.target.value) || 0)}
           min="0"
