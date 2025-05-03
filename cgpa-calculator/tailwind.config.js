@@ -1,4 +1,4 @@
-calculator\tailwind.config.js
+cgpa-calculator\tailwind.config.js
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
