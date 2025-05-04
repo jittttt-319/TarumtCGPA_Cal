@@ -30,13 +30,13 @@ const Calculator: React.FC = () => {
 
   const handleNumSubjectsChange = (value: number | '') => {
     setNumSubjects(value);
-    
+
     if (value === '' || isNaN(Number(value))) {
       return; // Don't update subjects if value is empty
     }
 
     const num = Number(value);
-    
+
     if (num > subjects.length) {
       // Add new subjects
       setSubjects([
@@ -54,7 +54,7 @@ const Calculator: React.FC = () => {
       alert('Please enter the number of subjects');
       return;
     }
-    
+
     const validSubjects = subjects.filter((s) => s.grade && s.credit_hours > 0);
 
     if (validSubjects.length === 0) {
@@ -65,7 +65,7 @@ const Calculator: React.FC = () => {
     }
 
     const [gpa, totalCreditHours] = calculateGPA(validSubjects, isOldStudent);
-    
+
     // Modified to pass internship credit hours directly
     const cgpa = calculateCGPA(
       currentCreditHours,
@@ -102,7 +102,7 @@ const Calculator: React.FC = () => {
         <h2 className="text-xl font-semibold text-gray-800 mb-6">
           Enter Your Information
         </h2>
-  
+
         <div className="space-y-6">
           {/* Basic Info */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -118,7 +118,7 @@ const Calculator: React.FC = () => {
                 placeholder="Enter your name"
               />
             </div>
-  
+
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 Student Type
@@ -154,7 +154,7 @@ const Calculator: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Current Credit Hours (0 for new students)
+                Current Credit Hours (0 for first-time students)
               </label>
               <input
                 type="number"
@@ -170,8 +170,9 @@ const Calculator: React.FC = () => {
               />
               <div className="mt-2 text-xs bg-yellow-50 border border-yellow-200 rounded p-2 text-yellow-700">
                 <p className="font-semibold">Important:</p>
-                <p>Enter credit hours only if you are a diploma student entering degree year 2. All other new students should leave this as 0.</p>
-                <p>Incorrect values may lead to calculation errors.</p>
+                <p>All continuing students should enter their total completed credit hours from previous semesters.</p>
+                <p>Diploma students entering degree programs need to calculate their transfer credit hours carefully.</p>
+                <p>First-time students with no prior academic history should enter 0.</p>
               </div>
             </div>
 
