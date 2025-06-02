@@ -8,6 +8,9 @@ const inter = Inter({ subsets: ['latin'] });
 export const metadata: Metadata = {
   title: 'CGPA Calculator',
   description: 'Calculate your GPA and CGPA with adjustments for co-curricular activities and internships',
+    icons: {
+    icon: '/image.png'
+  }
 };
 
 export default function RootLayout({
