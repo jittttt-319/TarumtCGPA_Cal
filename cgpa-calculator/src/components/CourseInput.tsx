@@ -44,16 +44,18 @@ const CourseInput: React.FC<CourseInputProps> = ({
         <label className="block text-sm font-medium text-gray-700 mb-1">
           Credit Hours
         </label>
-        <input
-          type="number"
-          inputMode="decimal"
+        <select
           className="w-full p-3 border rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent text-lg"
           value={subject.credit_hours || ''}
           onChange={(e) => onChange(index, 'credit_hours', parseFloat(e.target.value) || 0)}
-          min="0"
-          step="0.5"
-          placeholder="1"
-        />
+        >
+          <option value="">Select Credit Hours</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
       </div>
     </div>
   );
