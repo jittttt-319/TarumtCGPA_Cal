@@ -5,18 +5,28 @@
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-rgb: 244, 244, 245;
-  --primary-color: 37, 99, 235;
-  --secondary-color: 124, 58, 237;
+  --primary-color: 59, 130, 246;
+  --secondary-color: 139, 92, 246;
   --accent-color: 236, 72, 153;
-  --success-color: 22, 163, 74;
-  --warning-color: 234, 179, 8;
-  --error-color: 220, 38, 38;
+  --success-color: 34, 197, 94;
+  --warning-color: 251, 191, 36;
+  --error-color: 239, 68, 68;
 }
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: rgb(var(--background-rgb));
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background-attachment: fixed;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  min-height: 100vh;
+}
+
+/* Glassmorphism effect */
+.glass {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 /* Custom container styles */
@@ -26,41 +36,91 @@ body {
 
 /* Custom header gradient */
 .header-gradient {
-  background: linear-gradient(90deg, rgb(var(--primary-color)) 0%, rgb(var(--secondary-color)) 100%);
-  @apply text-white shadow-md;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.95) 0%, rgba(139, 92, 246, 0.95) 100%);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  @apply text-white shadow-2xl;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.2);
 }
 
 /* Card styles */
 .card {
-  @apply bg-white rounded-lg shadow-md overflow-hidden border border-gray-100;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  @apply bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .card:hover {
+  transform: translateY(-4px);
+  @apply shadow-2xl;
+  border-color: rgba(99, 102, 241, 0.3);
+}
+
+/* Modern input card */
+.input-card {
+  @apply bg-gradient-to-br from-white to-gray-50 rounded-xl shadow-xl p-8 border border-gray-200;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.input-card:hover {
+  @apply shadow-2xl;
   transform: translateY(-2px);
-  @apply shadow-lg;
 }
 
 /* Input focus styles */
+input, select {
+  @apply transition-all duration-200;
+}
+
 input:focus, select:focus {
-  @apply outline-none ring-2 ring-blue-500/50 border-transparent;
+  @apply outline-none ring-2 ring-blue-500/50 border-blue-400;
+  transform: scale(1.01);
+}
+
+input, select {
+  @apply shadow-sm;
+}
+
+input:hover, select:hover {
+  @apply border-gray-400;
 }
 
 /* Button styles */
 .btn {
-  @apply px-4 py-2 rounded-md font-medium transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2;
+  @apply px-6 py-3 rounded-xl font-semibold transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 shadow-lg;
+  transform: translateY(0);
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  @apply shadow-xl;
+}
+
+.btn:active {
+  transform: translateY(0);
 }
 
 .btn-primary {
-  @apply bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-500;
+  @apply bg-gradient-to-r from-blue-600 to-blue-700 text-white hover:from-blue-700 hover:to-blue-800 focus:ring-blue-500;
+  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+}
+
+.btn-primary:hover {
+  box-shadow: 0 6px 20px rgba(59, 130, 246, 0.6);
 }
 
 .btn-secondary {
-  @apply bg-gray-200 text-gray-800 hover:bg-gray-300 focus:ring-gray-500;
+  @apply bg-gradient-to-r from-gray-100 to-gray-200 text-gray-800 hover:from-gray-200 hover:to-gray-300 focus:ring-gray-500;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.btn-secondary:hover {
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
 }
 
 .btn-success {
-  @apply bg-green-600 text-white hover:bg-green-700 focus:ring-green-500;
+  @apply bg-gradient-to-r from-green-600 to-green-700 text-white hover:from-green-700 hover:to-green-800 focus:ring-green-500;
+  box-shadow: 0 4px 15px rgba(34, 197, 94, 0.4);
 }
 
 /* Animated label transition */
@@ -79,25 +139,68 @@ input:focus, select:focus {
 
 /* Result card animations */
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
+  from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(-20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
 .result-card {
-  animation: fadeIn 0.5s ease-out forwards;
+  animation: fadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
 .result-value {
-  @apply text-3xl font-bold;
-  background: linear-gradient(90deg, rgb(var(--primary-color)) 0%, rgb(var(--success-color)) 100%);
+  @apply text-4xl font-extrabold;
+  background: linear-gradient(135deg, rgb(var(--primary-color)) 0%, rgb(var(--secondary-color)) 50%, rgb(var(--success-color)) 100%);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  animation: slideIn 0.5s ease-out 0.2s backwards;
+}
+
+/* Stat card styles */
+.stat-card {
+  @apply bg-gradient-to-br p-6 rounded-2xl shadow-lg;
+  transition: all 0.3s ease;
+  animation: scaleIn 0.5s ease-out backwards;
+}
+
+.stat-card:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.stat-card:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.stat-card:hover {
+  transform: translateY(-4px) scale(1.02);
+  @apply shadow-2xl;
 }
 
 /* Custom footer */
 .app-footer {
-  @apply py-6 border-t border-gray-200 bg-gray-50 text-gray-600;
+  @apply py-8 border-t border-white/20 text-white/80;
+  background: rgba(99, 102, 241, 0.3);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* Section headers */
+.section-header {
+  @apply text-2xl font-bold text-gray-800 mb-6 pb-3 border-b-2 border-blue-500;
+  background: linear-gradient(90deg, #3b82f6 0%, #8b5cf6 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 /* Loading spinner animation */

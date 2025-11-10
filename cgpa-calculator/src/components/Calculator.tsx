@@ -97,22 +97,23 @@ const Calculator: React.FC = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto p-4">
-      <div className="bg-white rounded-lg shadow-md p-6 mb-8">
-        <h2 className="text-xl font-semibold text-gray-800 mb-6">
-          Enter Your Information
+    <div className="max-w-5xl mx-auto p-4">
+      <div className="input-card mb-8">
+        <h2 className="section-header">
+          📝 Enter Your Information
         </h2>
 
-        <div className="space-y-6">
+        <div className="space-y-8">
           {/* Basic Info */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-semibold text-gray-700 mb-2 flex items-center gap-2">
+                <span className="text-lg">👤</span>
                 Your Name
               </label>
               <input
                 type="text"
-                className="w-full p-3 border rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent text-lg"
+                className="w-full p-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-lg shadow-sm"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Enter your name"
@@ -120,70 +121,74 @@ const Calculator: React.FC = () => {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-semibold text-gray-700 mb-2 flex items-center gap-2">
+                <span className="text-lg">🎓</span>
                 Student Type
               </label>
-              <div className="flex gap-4 mt-2">
-                <label className="flex items-center">
+              <div className="flex gap-4 mt-3">
+                <label className="flex items-center px-4 py-2 border-2 rounded-lg cursor-pointer transition-all hover:bg-blue-50" style={{ borderColor: !isOldStudent ? '#3b82f6' : '#d1d5db', backgroundColor: !isOldStudent ? '#eff6ff' : 'white' }}>
                   <input
                     type="radio"
                     checked={!isOldStudent}
                     onChange={() => setIsOldStudent(false)}
                     className="mr-2 h-5 w-5"
                   />
-                  <span className="text-lg">New Student</span>
+                  <span className="text-base font-medium">New Student</span>
                 </label>
-                <label className="flex items-center">
+                <label className="flex items-center px-4 py-2 border-2 rounded-lg cursor-pointer transition-all hover:bg-blue-50" style={{ borderColor: isOldStudent ? '#3b82f6' : '#d1d5db', backgroundColor: isOldStudent ? '#eff6ff' : 'white' }}>
                   <input
                     type="radio"
                     checked={isOldStudent}
                     onChange={() => setIsOldStudent(true)}
                     className="mr-2 h-5 w-5"
                   />
-                  <span className="text-lg">Returning Student</span>
+                  <span className="text-base font-medium">Returning Student</span>
                 </label>
               </div>
-              <div className="mt-2 text-xs text-gray-500 italic">
-                <p>Note: New students follow the updated grading scale (A- = 3.67, A = 4.0, etc.)</p>
-                <p>Returning students use the older grading scale (A- = 3.75, A = 4.0, etc.)</p>
+              <div className="mt-3 text-xs bg-blue-50 border-l-4 border-blue-400 rounded p-3 text-blue-700">
+                <p className="font-semibold mb-1">ℹ️ Note:</p>
+                <p className="mb-1">• New students: Updated scale (A- = 3.67)</p>
+                <p>• Returning students: Older scale (A- = 3.75)</p>
               </div>
             </div>
           </div>
 
           {/* Current CGPA info */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Current Credit Hours (0 for first-time students)
+              <label className="block text-sm font-semibold text-gray-700 mb-2 flex items-center gap-2">
+                <span className="text-lg">📚</span>
+                Current Credit Hours
               </label>
               <input
                 type="number"
                 inputMode="decimal"
-                className="w-full p-3 border rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent text-lg"
+                className="w-full p-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-lg shadow-sm"
                 value={currentCreditHours || ''}
                 onChange={(e) =>
                   setCurrentCreditHours(parseFloat(e.target.value) || 0)
                 }
                 min="0"
                 step="0.5"
-                placeholder="0"
+                placeholder="0 (for first-time students)"
               />
-              <div className="mt-2 text-xs bg-yellow-50 border border-yellow-200 rounded p-2 text-yellow-700">
-                <p className="font-semibold">Important:</p>
-                <p>All continuing students should enter their total completed credit hours from previous semesters.</p>
-                <p>Diploma students entering degree programs need to calculate their transfer credit hours carefully.</p>
-                <p>First-time students with no prior academic history should enter 0.</p>
+              <div className="mt-3 text-xs bg-amber-50 border-l-4 border-amber-400 rounded p-3 text-amber-800">
+                <p className="font-semibold mb-1">⚠️ Important:</p>
+                <p className="mb-1">• Continuing students: Enter total completed credit hours</p>
+                <p className="mb-1">• Transfer students: Calculate transfer credits carefully</p>
+                <p>• First-time students: Enter 0</p>
               </div>
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Current CGPA (0 for new students)
+              <label className="block text-sm font-semibold text-gray-700 mb-2 flex items-center gap-2">
+                <span className="text-lg">🎯</span>
+                Current CGPA
               </label>
               <input
                 type="number"
                 inputMode="decimal"
-                className="w-full p-3 border rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent text-lg"
+                className="w-full p-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-lg shadow-sm"
                 value={currentCGPA || ''}
                 onChange={(e) =>
                   setCurrentCGPA(parseFloat(e.target.value) || 0)
@@ -191,20 +196,21 @@ const Calculator: React.FC = () => {
                 min="0"
                 max="4.0"
                 step="0.01"
-                placeholder="0.00"
+                placeholder="0.00 (for new students)"
               />
             </div>
           </div>
 
           {/* Number of subjects */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-semibold text-gray-700 mb-2 flex items-center gap-2">
+              <span className="text-lg">📊</span>
               Number of Subjects This Semester
             </label>
             <input
               type="number"
               inputMode="numeric"
-              className="w-full p-3 border rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent text-lg"
+              className="w-full p-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-lg shadow-sm"
               value={numSubjects}
               onChange={(e) => {
                 const value = e.target.value === '' ? '' : parseInt(e.target.value);
@@ -217,7 +223,8 @@ const Calculator: React.FC = () => {
 
           {/* Subject inputs */}
           <div>
-            <h3 className="text-lg font-medium text-gray-800 mb-3">
+            <h3 className="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
+              <span className="text-2xl">📖</span>
               Enter Subject Details
             </h3>
             <div className="space-y-4">
@@ -233,52 +240,59 @@ const Calculator: React.FC = () => {
           </div>
 
           {/* Extra adjustments */}
-          <div>
-            <h3 className="text-lg font-medium text-gray-800 mb-3">
+          <div className="bg-gradient-to-br from-purple-50 to-pink-50 p-6 rounded-xl border-2 border-purple-200">
+            <h3 className="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
+              <span className="text-2xl">✨</span>
               Additional Adjustments
             </h3>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label className="flex items-center">
+                <label className="flex items-center p-4 bg-white rounded-lg border-2 border-gray-200 cursor-pointer hover:border-purple-400 hover:bg-purple-50 transition-all">
                   <input
                     type="checkbox"
                     checked={cocuParticipation}
                     onChange={(e) => setCocuParticipation(e.target.checked)}
-                    className="mr-2 h-5 w-5"
+                    className="mr-3 h-5 w-5"
                   />
-                  <span className="text-lg">Participated in co-curricular activities</span>
+                  <span className="text-base font-medium flex items-center gap-2">
+                    <span className="text-xl">🏆</span>
+                    Co-curricular Activities
+                  </span>
                 </label>
               </div>
 
               <div>
-                <label className="flex items-center">
+                <label className="flex items-center p-4 bg-white rounded-lg border-2 border-gray-200 cursor-pointer hover:border-purple-400 hover:bg-purple-50 transition-all">
                   <input
                     type="checkbox"
                     checked={hasInternship}
                     onChange={(e) => setHasInternship(e.target.checked)}
-                    className="mr-2 h-5 w-5"
+                    className="mr-3 h-5 w-5"
                   />
-                  <span className="text-lg">Completed an internship</span>
+                  <span className="text-base font-medium flex items-center gap-2">
+                    <span className="text-xl">💼</span>
+                    Completed Internship
+                  </span>
                 </label>
 
                 {hasInternship && (
-                  <div className="mt-2 ml-6">
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <div className="mt-4 ml-4 p-4 bg-white rounded-lg border-2 border-purple-300">
+                    <label className="block text-sm font-semibold text-gray-700 mb-2">
                       Internship Credit Hours
                     </label>
                     <input
                       type="number"
                       inputMode="numeric"
-                      className="w-full p-3 border rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent text-lg"
+                      className="w-full p-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-lg shadow-sm"
                       value={internshipCreditHours || ''}
                       onChange={(e) => setInternshipCreditHours(parseFloat(e.target.value) || 0)}
                       min="0"
                       step="1"
                       placeholder="Enter credit hours"
                     />
-                    <p className="text-xs text-gray-500 mt-1">
-                      Enter the number of credit hours for your internship according to your faculty guidelines.
+                    <p className="text-xs text-gray-600 mt-2 italic">
+                      💡 Enter credit hours according to your faculty guidelines
                     </p>
                   </div>
                 )}
@@ -287,18 +301,20 @@ const Calculator: React.FC = () => {
           </div>
 
           {/* Action buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mt-6">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8 pt-6 border-t-2 border-gray-200">
             <button
-              className="btn btn-primary p-4 text-lg"
+              className="btn btn-primary px-8 py-4 text-lg font-bold flex items-center justify-center gap-2"
               onClick={handleCalculate}
             >
-              Calculate
+              <span className="text-xl">🧮</span>
+              Calculate Results
             </button>
             <button
-              className="btn btn-secondary p-4 text-lg"
+              className="btn btn-secondary px-8 py-4 text-lg font-bold flex items-center justify-center gap-2"
               onClick={handleReset}
             >
-              Reset
+              <span className="text-xl">🔄</span>
+              Reset Form
             </button>
           </div>
         </div>
